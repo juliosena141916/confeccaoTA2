@@ -32,7 +32,8 @@ class EstoqueResource extends Resource
         // return EstoqueForm::configure($schema);
         return $schema
             ->schema([
-                Select::make('produtos_Id')
+                TextInput::make('produtos_Id')->required()->label('Id'),
+                Select::make('nome')
                     ->relationship('produtos', 'nome')
                     ->searchable()
                     ->preload()
