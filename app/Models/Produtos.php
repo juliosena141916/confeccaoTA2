@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Produtos extends Model
 {
     protected $guarded = [];
+
+    public function Estoques()
+    {
+        return $this->hasOne(Estoques::class);
+    }
 }
 

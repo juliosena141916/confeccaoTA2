@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Produtos\Tables;
+namespace App\Filament\Resources\Estoques\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -8,7 +8,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Table;
 
-class ProdutosTable
+class EstoquesTable
 {
     public static function configure(Table $table): Table
     {
@@ -20,12 +20,8 @@ class ProdutosTable
                 //
             ])
             ->recordActions([
-                ViewAction::make()->label('Visualizar'),
-                EditAction::make()->label('Editar'),
-                EditAction::make('Entrada estoque')
-                    ->label('Entrada')
-                ->icon('heroicon-o-plus-circle')
-                ->color('success')
+                ViewAction::make(),
+                EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
