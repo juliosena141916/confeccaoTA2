@@ -21,12 +21,23 @@ use Filament\Forms\Components\Repeater;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
+use UnitEnum;
 
 class PedidoResource extends Resource
 {
     protected static ?string $model = Pedido::class;
 
+    protected static string|UnitEnum|null $navigationGroup = 'Vendas';
+    //
+    protected static ?int $navigationSort = 1;
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static ?string $navigationLabel = 'Pedido';
+
+    protected static ?string $modelLabel = 'Pedido';
+
+    protected static ?string $pluralModelLabel = 'Pedidos';
 
     protected static ?string $recordTitleAttribute = 'pedido';
 

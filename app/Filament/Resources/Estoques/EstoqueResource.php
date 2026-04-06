@@ -18,12 +18,23 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Select;
+use UnitEnum;
 
 class EstoqueResource extends Resource
 {
     protected static ?string $model = Estoque::class;
 
+    protected static string|UnitEnum|null $navigationGroup = 'Estoque';
+    //
+    protected static ?int $navigationSort = 3;
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static ?string $navigationLabel = 'Movimentação Estoque';
+
+    protected static ?string $modelLabel = 'Movimentação Estoque';
+
+    protected static ?string $pluralModelLabel = 'Movimentação Estoque';
 
     protected static ?string $recordTitleAttribute = 'Estoque';
 

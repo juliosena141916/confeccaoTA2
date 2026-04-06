@@ -17,12 +17,23 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
+use UnitEnum;
 
 class InsumoResource extends Resource
 {
     protected static ?string $model = Insumo::class;
 
+    protected static string|UnitEnum|null $navigationGroup = 'Estoque';
+    //
+    protected static ?int $navigationSort = 1;
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static ?string $navigationLabel = 'Insumo';
+
+    protected static ?string $modelLabel = 'Insumo';
+
+    protected static ?string $pluralModelLabel = 'Insumos';
 
     protected static ?string $recordTitleAttribute = 'Insumo';
 

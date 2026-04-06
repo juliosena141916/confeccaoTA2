@@ -17,12 +17,24 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
+use UnitEnum;
 
 class ProdutosResource extends Resource
 {
     protected static ?string $model = Produtos::class;
 
+    protected static string|UnitEnum|null $navigationGroup = 'Estoque';
+    //
+    protected static ?int $navigationSort = 2;
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static ?string $navigationLabel = 'Produto';
+
+    protected static ?string $modelLabel = 'Produto';
+
+    protected static ?string $pluralModelLabel = 'Produtos';
+
 
     protected static ?string $recordTitleAttribute = 'produtos';
 

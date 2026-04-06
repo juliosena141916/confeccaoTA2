@@ -17,12 +17,25 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
+use UnitEnum;
 
 class FornecedorResource extends Resource
 {
     protected static ?string $model = Fornecedor::class;
+    
+
+    protected static string|UnitEnum|null $navigationGroup = 'Cadastros Gerais';
+    //
+    protected static ?int $navigationSort = 2;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static ?string $navigationLabel = 'Fornecedor';
+
+    protected static ?string $modelLabel = 'Fornecedor';
+
+    protected static ?string $pluralModelLabel = 'Fornecedores';
+
 
     protected static ?string $recordTitleAttribute = 'fornecedor';
 
