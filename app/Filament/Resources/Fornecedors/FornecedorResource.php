@@ -22,6 +22,11 @@ use UnitEnum;
 class FornecedorResource extends Resource
 {
     protected static ?string $model = Fornecedor::class;
+
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->can('access_fornecedores') ?? false;
+    }
     
 
     protected static string|UnitEnum|null $navigationGroup = 'Cadastros Gerais';
@@ -37,17 +42,11 @@ class FornecedorResource extends Resource
     protected static ?string $pluralModelLabel = 'Fornecedores';
 
 
-    protected static ?string $recordTitleAttribute = 'fornecedor';
+    protected static ?string $recordTitleAttribute = 'nome';
 
     public static function form(Schema $schema): Schema
     {
-        FornecedorForm::configure($schema);
-        return $schema
-        ->schema([
-            TextInput::make('nome')->required()->label('Nome'),
-            TextInput::make('email')->email()->label('E-mail'),
-            TextInput::make('endereco')->label('Endereço'),
-        ]);
+        return FornecedorForm::configure($schema);
     }
 
     public static function infolist(Schema $schema): Schema

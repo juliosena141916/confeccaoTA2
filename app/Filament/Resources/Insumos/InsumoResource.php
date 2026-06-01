@@ -23,6 +23,11 @@ class InsumoResource extends Resource
 {
     protected static ?string $model = Insumo::class;
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->can('access_insumos') ?? false;
+    }
+
     protected static string|UnitEnum|null $navigationGroup = 'Estoque';
     //
     protected static ?int $navigationSort = 1;
@@ -40,13 +45,6 @@ class InsumoResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return InsumoForm::configure($schema);
-        return $schema
-        ->schema([
-            TextInput::make('nome')->required(),
-            TextInput::make('unidade_medida')->required()->label('unidade'),
-            TextInput::make('preco_custo')->numeric()->prefix('R$')->label('preco de custo'),
-            TextInput::make('estoque')->numeric()->default(0),
-        ]);
     }
 
     public static function infolist(Schema $schema): Schema
@@ -57,13 +55,6 @@ class InsumoResource extends Resource
     public static function table(Table $table): Table
     {
         return InsumosTable::configure($table);
-        return $table
-        ->colums([
-            TextColums::make('nome')->searchable(),
-            TextColums::make('unidade_medida'),
-            TextColums::make('preco_custo')->money('BRL'),
-            TextColums::make('estoque'),
-        ]);
     }
 
     public static function getRelations(): array

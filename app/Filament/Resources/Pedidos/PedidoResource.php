@@ -27,6 +27,11 @@ class PedidoResource extends Resource
 {
     protected static ?string $model = Pedido::class;
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->can('access_pedidos') ?? false;
+    }
+
     protected static string|UnitEnum|null $navigationGroup = 'Vendas';
     //
     protected static ?int $navigationSort = 1;

@@ -9,11 +9,7 @@ use App\Filament\Resources\Permissions\Pages\ViewPermission;
 use App\Filament\Resources\Permissions\Schemas\PermissionForm;
 use App\Filament\Resources\Permissions\Schemas\PermissionInfolist;
 use App\Filament\Resources\Permissions\Tables\PermissionsTable;
-// use App\Models\Permission;
 use Spatie\Permission\Models\Permission;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\Select;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -25,8 +21,13 @@ class PermissionResource extends Resource
 {
     protected static ?string $model = Permission::class;
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->can('access_permissions') ?? false;
+    }
+
     protected static string|UnitEnum|null $navigationGroup = 'Administração';
-    //
+
     protected static ?int $navigationSort = 1;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -37,19 +38,11 @@ class PermissionResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Permissões';
 
-    protected static ?string $recordTitleAttribute = 'Permissões';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
-        // return PermissionForm::configure($schema);
-        return $schema->schema([
-        TextInput::make('name')
-            ->label('Nome da Regra')
-            ->required(),
-
-        TextInput::make('guard_name')
-            ->label('Sigla da Regra')    
-            ]);
+        return PermissionForm::configure($schema);
     }
 
     public static function infolist(Schema $schema): Schema
@@ -59,18 +52,7 @@ class PermissionResource extends Resource
 
     public static function table(Table $table): Table
     {
-        // return PermissionsTable::configure($table);
-        return $table->columns([
-            TextColumn::make('name')
-                ->label('Nome')
-                ->searchable()
-                ->sortable(),    
-
-            TextColumn::make('guard_name')
-                ->label('Sigla')
-                ->searchable()
-                ->sortable(),    
-        ]);
+        return PermissionsTable::configure($table);
     }
 
     public static function getRelations(): array

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Estoques\Schemas;
 
+use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
 class EstoqueInfolist
@@ -10,7 +11,17 @@ class EstoqueInfolist
     {
         return $schema
             ->components([
-                //
+                TextEntry::make('produto.nome')
+                    ->label('Produto'),
+                TextEntry::make('quantidade')
+                    ->label('Quantidade'),
+                TextEntry::make('localizacao')
+                    ->label('Localização'),
+                TextEntry::make('quantidade_minima')
+                    ->label('Quantidade Mínima'),
+                TextEntry::make('valor')
+                    ->money('BRL')
+                    ->label('Valor'),
             ]);
     }
 }

@@ -23,6 +23,11 @@ class ProdutosResource extends Resource
 {
     protected static ?string $model = Produtos::class;
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->can('access_produtos') ?? false;
+    }
+
     protected static string|UnitEnum|null $navigationGroup = 'Estoque';
     //
     protected static ?int $navigationSort = 2;

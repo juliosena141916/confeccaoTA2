@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
+use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
@@ -11,18 +12,29 @@ class UserInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('name'),
+                TextEntry::make('name')
+                    ->label('Nome'),
+
                 TextEntry::make('email')
-                    ->label('Email address'),
+                    ->label('E-mail'),
+
                 TextEntry::make('email_verified_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
+                    ->label('Verificado em')
+                    ->dateTime(),
+
+                RepeatableEntry::make('roles')
+                    ->label('Regras (Cargos)')
+                    ->schema([
+                        TextEntry::make('name'),
+                    ])
+                    ->columns(1),
+
+                RepeatableEntry::make('permissions')
+                    ->label('Permissões Diretas')
+                    ->schema([
+                        TextEntry::make('name'),
+                    ])
+                    ->columns(1),
             ]);
     }
 }

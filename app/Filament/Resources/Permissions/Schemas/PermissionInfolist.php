@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Permissions\Schemas;
 
+use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
 class PermissionInfolist
@@ -10,7 +11,11 @@ class PermissionInfolist
     {
         return $schema
             ->components([
-                //
+                TextEntry::make('name')
+                    ->label('Nome da Permissão'),
+
+                TextEntry::make('guard_name')
+                    ->label('Guard'),
             ]);
     }
 }

@@ -16,18 +16,34 @@ class UsersTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(),
-                TextColumn::make('email_verified_at')
-                    ->dateTime()
+                    ->label('Nome')
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('created_at')
+
+                TextColumn::make('email')
+                    ->label('E-mail')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('roles.name')
+                    ->label('Regras')
+                    ->badge()
+                    ->searchable(),
+
+                TextColumn::make('email_verified_at')
+                    ->label('Verificado em')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('created_at')
+                    ->label('Criado em')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('updated_at')
+                    ->label('Atualizado em')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -36,8 +52,8 @@ class UsersTable
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
+                ViewAction::make()->label('Visualizar'),
+                EditAction::make()->label('Editar'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

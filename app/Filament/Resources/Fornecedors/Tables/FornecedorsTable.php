@@ -14,7 +14,15 @@ class FornecedorsTable
     {
         return $table
             ->columns([
-                //
+                \Filament\Tables\Columns\TextColumn::make('nome')
+                    ->label('Nome')
+                    ->searchable()
+                    ->sortable(),
+                \Filament\Tables\Columns\TextColumn::make('email')
+                    ->label('E-mail')
+                    ->searchable(),
+                \Filament\Tables\Columns\TextColumn::make('endereco')
+                    ->label('Endereço'),
             ])
             ->filters([
                 //

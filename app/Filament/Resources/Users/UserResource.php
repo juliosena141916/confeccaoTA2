@@ -15,17 +15,19 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\Select;
 use UnitEnum;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->can('access_users') ?? false;
+    }
+
     protected static string|UnitEnum|null $navigationGroup = 'Administração';
-    //
+
     protected static ?int $navigationSort = 3;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -36,35 +38,11 @@ class UserResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Usuarios';
 
-
-    protected static ?string $recordTitleAttribute = 'Usuarios';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
-        // return UserForm::configure($schema);
-        return $schema->schema([
-
-        TextInput::make('name')
-        ->label('Nome')
-        ->required(),
-
-        TextInput::make('email')
-        ->label('Email')
-        ->required(),
-
-        TextInput::make('email_verified_at')
-        ->label('Verificação'),
-        
-        TextInput::make('password')
-        ->label('Senha'),
-        
-        Select::make('permissions')
-            ->label('Permissões de Acesso')
-            ->multiple()
-            ->relationship('permissions', 'name')
-            ->preload()
-            ->columnSpanFull(),
-            ]);
+        return UserForm::configure($schema);
     }
 
     public static function infolist(Schema $schema): Schema

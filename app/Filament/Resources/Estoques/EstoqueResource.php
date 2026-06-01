@@ -15,14 +15,16 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\Select;
 use UnitEnum;
 
 class EstoqueResource extends Resource
 {
     protected static ?string $model = Estoque::class;
+
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->can('access_estoques') ?? false;
+    }
 
     protected static string|UnitEnum|null $navigationGroup = 'Estoque';
     //
@@ -40,19 +42,7 @@ class EstoqueResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        // return EstoqueForm::configure($schema);
-        return $schema
-            ->schema([
-                TextInput::make('produtos_Id')->required()->label('Id'),
-                Select::make('nome')
-                    ->relationship('produtos', 'nome')
-                    ->searchable()
-                    ->preload()
-                    ->required()
-                    ->label('Selecione o produto'),
-                TextInput::make('quantidade')->required()->label('Quantidade'),
-                TextInput::make('valor')->numeric()->prefix('R$')->label('Valor do Material'),
-            ]); 
+        return EstoqueForm::configure($schema);
     }
 
     public static function infolist(Schema $schema): Schema

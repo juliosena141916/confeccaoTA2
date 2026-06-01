@@ -19,13 +19,14 @@ class EditPedido extends EditRecord
         ];
     }
 
-    protected function afterSave(): void{
-    $pedido = $this->record;
+    protected function afterSave(): void
+    {
+        $pedido = $this->record;
 
-    $total = $pedido->item->sum(function($item) {
-        return $item->quantidade * $item->preco_unitario;
-    });
+        $total = $pedido->itens()
+            ->selectRaw('SUM(quantidade * preco_unitario) as total')
+            ->value('total') ?? 0;
 
-    $pedido->update(['valor_total' => $total]);
-  }
+        $pedido->update(['valor_total' => $total]);
+    }
 }

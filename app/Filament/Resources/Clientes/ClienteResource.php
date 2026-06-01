@@ -24,6 +24,11 @@ class ClienteResource extends Resource
 {
     protected static ?string $model = Cliente::class;
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->can('access_clientes') ?? false;
+    }
+
     protected static string|UnitEnum|null $navigationGroup = 'Cadastros Gerais';
     //
     protected static ?int $navigationSort = 1;

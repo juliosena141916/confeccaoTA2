@@ -3,8 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class cliente extends Model
+class Cliente extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['nome', 'email', 'documento', 'telefone', 'endereco', 'cidade', 'estado', 'cep'];
+
+    public function pedidos(): HasMany
+    {
+        return $this->hasMany(Pedido::class);
+    }
 }
